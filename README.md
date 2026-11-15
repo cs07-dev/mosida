@@ -16,9 +16,27 @@ Pleos Connect 차량용 AI 비서 프로토타입 (현대자동차그룹 차량�
 
 NaviHelper, TextToSpeech, SpeechToText, FusedLocation
 
-## 실행
+## APK
 
-Android Studio + Pleos Connect Emulator(API 34). `local.properties`에 아래 키를 넣으면 실제 데이터로 동작하고, 비워 두면 예시 데이터로 동작합니다.
+[`apk/project_mosida_release.apk`](apk/project_mosida_release.apk) (release 빌드)
+
+공개 APK는 API 키 없이 빌드되어 실시간 교통(TMAP)·주차·PC 비서 없이 동작합니다. 예시 약속과 직선 거리 기반 추정 경로로 전체 흐름(제안 → 동의 → Pleos 내비 경로 설정 → 안내 화면)을 확인할 수 있습니다.
+
+```bash
+adb install apk/project_mosida_release.apk
+adb shell appops set --user 10 com.hmgchallenge.mosida SYSTEM_ALERT_WINDOW allow   # 내비 안내 시작 후 앱으로 복귀
+```
+
+## 테스트 환경
+
+- Pleos Connect Emulator **v2.1.0 (API 34)**, 화면 **2560×1440** (가로)
+- Android Studio, JDK 17, Kotlin + Jetpack Compose, minSdk 28 / targetSdk 34
+- 권한: `pleos.car.permission.NAVI_ROUTE`, `NAVI_ROUTE_SEARCH`, `TTS_SERVICE`, `STT_SERVICE`, `FUSED_LOCATION`(실행 시 허용), `SYSTEM_ALERT_WINDOW`(위 appops 명령)
+- 네트워크: 인터넷 필요 (지도 타일 OpenStreetMap, 기상 예보 met.no)
+
+## 실행 (소스 빌드)
+
+`local.properties`에 아래 키를 넣으면 실제 데이터로 동작합니다. 비워 두면 위 공개 APK와 같은 예시 동작입니다.
 
 ```properties
 omb.token=   # OpenMausBot Bot API 키 (PC에서 OpenMausBot 실행, 에뮬레이터에서 10.0.2.2:8800)
