@@ -1,0 +1,9 @@
+# 키가 들어 있음 (omb.token, seoul.key, llm.*, tmap.key)
+local.properties
+.gradle/
+.kotlin/
+build/
+app/build/
+.idea/
+*.iml
+.DS_Store
